@@ -1,6 +1,11 @@
 FROM debian:stretch-slim
 WORKDIR /work
-COPY target/rest-http-crud-quarkus-runner /work/rest-http-crud-quarkus-runner
+COPY target/rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner /work/rest-http-crud-quarkus
 RUN chmod 777 /work
 EXPOSE 8080
-ENTRYPOINT ["./rest-http-crud-quarkus-runner", "-Xmx128m", "-Xmn110m", "-Xms100m", "-Dhttp.host=0.0.0.0" ]
+
+ENV XMX=128 \
+    XMN=110 \
+    XMS=100
+
+ENTRYPOINT ["bash", "-c", "./rest-http-crud-quarkus -Xmx\"$XMX\"m -Xmn\"$XMN\"m -Xms\"$XMS\"m -Dhttp.host=0.0.0.0" ]

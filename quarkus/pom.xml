@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>io.quarkus</groupId>
     <artifactId>rest-http-crud-parent</artifactId>
     <version>1.0.0.Alpha1-SNAPSHOT</version>
   </parent>
-
   <artifactId>rest-http-crud-quarkus</artifactId>
-
   <name>Quarkus - Relational Database Backend Mission</name>
-
   <properties>
     <version.quarkus>1.11.0.Final</version.quarkus>
   </properties>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-bom</artifactId>
-        <scope>import</scope>
-        <type>pom</type>
         <version>${version.quarkus}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
-
   <dependencies>
-
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-metrics</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-health</artifactId>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm</artifactId>
@@ -53,11 +53,9 @@
       <artifactId>quarkus-jdbc-postgresql</artifactId>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <source>1.8</source>
@@ -79,9 +77,7 @@
       </plugin>
     </plugins>
   </build>
-
   <profiles>
-
     <profile>
       <id>native-image</id>
       <activation>
@@ -104,7 +100,7 @@
                 <configuration>
                   <cleanupServer>true</cleanupServer>
                   <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                  <graalvmHome>${graalvmHome}</graalvmHome>
+                  <graalvmHome>${env.GRAALVM_HOME}</graalvmHome>
                   <enableJni>false</enableJni>
                 </configuration>
               </execution>
@@ -113,7 +109,5 @@
         </plugins>
       </build>
     </profile>
-
   </profiles>
-
 </project>

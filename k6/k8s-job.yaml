@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6-load-test
+spec:
+  template:
+    spec:
+      containers:
+      - name: k6
+        image: your-docker-repo/k6:latest # Replace with your actual Docker image repository
+        env:
+        - name: REQUEST_RATE
+          value: "20" # Set your desired request rate
+        - name: HOST
+          value: "localhost" # Set your target host
+        - name: PORT
+          value: "8080" # Set your target port
+        args: ["run", "/app/fluctuating-load.js"]
+      restartPolicy: Never
+  backoffLimit: 0
